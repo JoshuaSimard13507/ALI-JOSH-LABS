@@ -3,6 +3,8 @@ from Die import Die
 
 class CalculateScore:
 
+
+    @staticmethod
     def default(selection: list[Die]) -> tuple[int, int]:
 
         counts = Counter(d.value for d in selection)

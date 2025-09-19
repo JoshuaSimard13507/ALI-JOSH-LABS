@@ -1,6 +1,8 @@
 from CalculateScore import CalculateScore
 from Player import Player
 
+
+### DEPRECATED ###
 class Setup:
     def __init__(self):
         self.calculate_score = CalculateScore.default
