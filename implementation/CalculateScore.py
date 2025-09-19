@@ -1,4 +1,5 @@
 from collections import Counter
+from Die import Die
 
 class CalculateScore:
 
