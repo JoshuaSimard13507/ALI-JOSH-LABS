@@ -1,5 +1,7 @@
-def main():
-    pass
+
+from Setup import Setup
+from Game import Game
 
 if __name__ == "__main__":
-    main()
+    setup = Setup()
+    setup.run()
