@@ -1,0 +1,25 @@
+@startuml
+package "Farkle Domain Model" {
+
+  class Game {}
+
+  class Player {}
+
+
+  class DicePool {}
+
+  class Die {}
+
+
+  class Setup {}
+
+
+  class CalculateScore {}
+
+  ' Relationships
+  Game "1" o-- "2..*" Player
+  DicePool "1" o-- "6" Die
+  Setup "1" *-- "1" Game
+  Game "1" *-- "1" DicePool
+}
+@enduml

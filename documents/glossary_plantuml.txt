@@ -1,0 +1,48 @@
+@startuml
+package "Farkle Glossary" {
+
+  class Farkle {
+    +Definition: A roll with no scoring dice; player loses unbanked points
+  }
+
+  class HotDice {
+    +Definition: When all dice in a roll score; player may reroll all six dice
+  }
+
+  class Bank {
+    +Definition: Action where a player secures turn points into total score and ends the turn
+  }
+
+  class Bust {
+    +Definition: Same as Farkle; losing all unbanked points for the turn
+  }
+
+  class ScoringDice {
+    +Definition: Dice or combinations that yield points under the RuleSet
+  }
+
+  class RuleSet {
+    +Definition: Configurable rules that define scoring, target score, and variations
+  }
+
+  class Round {
+    +Definition: Sequence where each player takes one turn
+  }
+
+  class Match {
+    +Definition: The complete game session from start to finish
+  }
+
+  class Turn {
+    +Definition: A player’s opportunity to roll, bank, or risk continuing
+  }
+
+  class DicePool {
+    +Definition: Current set of dice available to roll
+  }
+
+  class AIPlayer {
+    +Definition: Automated opponent
+  }
+}
+@enduml
