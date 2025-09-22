@@ -1,6 +1,5 @@
-from Game import Game
+from classes.setup import Setup
 
 if __name__ == "__main__":
-    game = Game()
-    game.init_game()
-    game.run_match()
+    setup = Setup()
+    setup.run()
