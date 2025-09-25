@@ -76,7 +76,7 @@ Josh:
 -Work on diagrams
 
 Ali:
--Remove nonessential functions
+-Remove nonessential functions (adding/removing players, etc)
 -Revise diagrams
 
 
