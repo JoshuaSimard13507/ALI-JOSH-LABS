@@ -1,0 +1,36 @@
+@startuml
+title Farkle — System Sequence Diagram (Setup → Play Turn → End)
+
+actor Player
+participant "Setup" as Setup
+participant "Game" as Game
+participant "CalculateScore" as cs
+participant "DicePool" as Pool
+participant "Die" as Die
+
+== Setup ==
+Player -> Setup : Launch, enter player names/options/other configs
+Setup -> cs : Choose scoring method
+Setup -> Game : Create/initialize Game(players, hot dice, scoring method, other configs)
+Game -> Pool : Initialize dice pool
+Pool -> Die : Initialize dice
+
+== Play Turn ==
+Player -> Game : Start turn
+Game -> Pool : Roll dice
+Pool -> Die : Roll self
+Pool --> Game : Dice result
+Game -> Player : Display result
+
+Game -> cs : Calculate score(dice result)
+cs --> Game : Score + remaining dice
+
+Game -> Player : Prompt: bank or continue?
+Player -> Game : Choose to bank / continue
+
+== End of Turn ==
+Game -> Player : Turn summary (points banked, total)
+Game -> Player : Check/announce win
+
+== End of Game ==
+Player -> Setup : Replay/reconfig/exit
