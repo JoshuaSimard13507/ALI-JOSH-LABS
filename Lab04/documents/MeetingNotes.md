@@ -1,6 +1,10 @@
-## LAB3-5 MEETING NOTES
+# LAB3-5 MEETING NOTES
 
-# START MEETING: Thursday, Sept. 11 2025 12:00PM
+
+
+##### START MEETING: Thursday, Sept. 11 2025 12:00PM
+
+
 
 Game to play Farkle https://en.wikipedia.org/wiki/Farkle
 
@@ -24,12 +28,17 @@ Ali:
 
 make repo share with Joshuasimard13507
 
-# END MEETING: 12:31PM
+
+
+##### END MEETING: 12:31PM
 
 
 
 
-# START MEETING: Thursday, Sept. 18 2025 12:20PM
+
+##### START MEETING: Thursday, Sept. 18 2025 12:20PM
+
+
 
 Improve implementation of Farkle
 Refactor Domain model to more accurately represent what it should be
@@ -48,12 +57,17 @@ Ali:
 -Fix glossary
 -Refactor domain model
 
-# END MEETING: 12:55PM
+
+
+##### END MEETING: 12:55PM
 
 
 
 
-# START MEETING: Thursday, Sept. 25 2025 4:00PM
+
+##### START MEETING: Thursday, Sept. 25 2025 4:00PM
+
+
 
 Improve implementation of Farkle
 Refactor SSD to more accurately represent what it should be
@@ -65,4 +79,7 @@ Ali:
 -Remove nonessential functions
 -Revise diagrams
 
-# END MEETING: 5:01PM
+
+
+##### END MEETING: 5:01PM
+
