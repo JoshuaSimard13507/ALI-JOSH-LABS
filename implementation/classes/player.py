@@ -2,17 +2,6 @@ import os
 import json
 
 class Player:
-    """A Farkle participant (human or simple AI).
-
-    Attributes
-    ----------
-    username : str
-        Display name.
-    lifetime_score : int
-        Cumulative match score (across turns).
-    is_ai : bool
-        True for a simple AI that chooses to bank or roll based on heuristics.
-    """
     def __init__(self, username: str, is_ai: bool = False):
         self.username: str = username
         self.lifetime_score: int = 0

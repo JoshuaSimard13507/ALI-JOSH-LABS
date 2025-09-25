@@ -59,18 +59,17 @@ python -m pip install pytest
 │  ├─ use_case_scenarios.png
 │  └─ use_case_scenarios_plantuml.txt
 │
-├─ implementation/
-│  ├─ CalculateScore.py
-│  ├─ DicePool.py
-│  ├─ Die.py
-│  ├─ Game.py
-│  ├─ main.py
-│  ├─ Player.py
-│  └─ Setup.py
-│
-├─ farkle_game.py
-└─ tests/
-   └─ test_farkle.py                         # unit tests
+└─ implementation/
+   ├─ main.py
+   ├─ classes/
+   │  ├─ CalculateScore.py
+   │  ├─ DicePool.py
+   │  ├─ Die.py
+   │  ├─ Game.py
+   │  ├─ Player.py
+   │  └─ Setup.py
+   └─ tests/
+      └─ test_farkle.py
 ```
 
 ## 4) Running the Game (Interactive CLI)
