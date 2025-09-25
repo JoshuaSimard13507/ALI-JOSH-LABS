@@ -1,0 +1,70 @@
+@startuml
+package "Farkle Class Model" {
+
+  class Game {
+    - calc_score: Setup.calculate_score
+    - game_running: bool
+    - target_score: int
+    - current_round: int
+    - players: list[Player]
+    - dice_pool: DicePool
+    + run(self)
+    + init_game(self)
+    + end_game(self)
+  }
+
+  class Player {
+    - username: string
+    - points: int
+    - lifetime_score: int
+    - wins: int
+    - losses: int
+    - is_ai: bool
+    + bank_points(self, points: int)
+    + win(self)
+    + lose(self)
+  }
+
+
+  class DicePool {
+    - dice_left: int
+    - dice: List[Die]
+    + roll(self, count: int)
+    + reset(self)
+  }
+
+  class Die {
+    - value: int (1..6)
+    + roll(self)
+  }
+
+
+  class Setup {
+    - calculate_score: CalculateScore.calculate_score(selection: list[Die])
+    - hot_dice_enabled: bool
+    - players: list[Player]
+    - target_score: int
+    + toggle_ai(self, username: string)
+    + toggle_hot_dice(self)
+    + rename(self, username: string, new: string)
+    + add_player(self, username: string)
+    + remove_player(self, username: string)
+    + set_number_dice(self, number: int)
+    + set_target_score(self, score: int)
+    + create_game(self)
+    + run(self)
+  }
+
+
+  class CalculateScore {
+    + {static} default(selection: list[Die])
+    + {static} calc_score_1..*(selection: list[Die])
+  }
+
+  ' Relationships
+  Game "1" o-- "2..*" Player
+  DicePool "1" o-- "6" Die
+  Setup "1" *-- "1" Game
+  Game "1" *-- "1" DicePool
+}
+@enduml
