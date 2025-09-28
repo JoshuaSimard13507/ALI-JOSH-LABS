@@ -41,7 +41,7 @@ package "Farkle Glossary" {
     +Definition: Current set of dice available to roll
   }
 
-  class AIPlayer {
+  class BOT {
     +Definition: Automated opponent
   }
 }

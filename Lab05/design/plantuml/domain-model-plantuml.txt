@@ -12,9 +12,10 @@ package "Farkle Domain Model" {
   class Setup {}
 
   ' Relationships
-  Game "1" o-- "2..*" Player
+  Game "1" o-- "2" Player
+  Setup "1" o-- "2" Player
   DicePool "1" o-- "6" Die
-  Setup "1" *-- "1" Game
+  Setup "1" *-- "*" Game
   Game "1" *-- "1" DicePool
 }
 @enduml

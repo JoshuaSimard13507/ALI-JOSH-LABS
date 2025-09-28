@@ -1,70 +1,79 @@
 @startuml
-package "Farkle Class Model" {
+skinparam packageStyle rectangle
+package "Farkle Class Model (Updated)" {
 
   class Game {
-    - calc_score: Setup.calculate_score
     - game_running: bool
     - target_score: int
     - current_round: int
-    - players: list[Player]
+    - players: list<Player>
     - dice_pool: DicePool
-    + run(self)
-    + init_game(self)
-    + end_game(self)
+    - hot_dice_enabled: bool
+    - tentative_score: int
+    + run(): bool
+    + get_player_choice(player: Player): str
+    + record_roll(score: int, used: int): void
+    + play_turn(player: Player): void
+    + calculate_score(selection: list<Die>): (int, int)
   }
 
   class Player {
-    - username: string
+    - username: str
     - points: int
     - lifetime_score: int
     - wins: int
-    - losses: int
+    - games: int
     - is_ai: bool
-    + bank_points(self, points: int)
-    + win(self)
-    + lose(self)
+    + bank_points(points: int): void
+    + win(): void
+    + lose(): void
+    + save(): void
+    + load(username_to_load: str | None): bool
   }
 
-
   class DicePool {
-    - dice_left: int
-    - dice: List[Die]
-    + roll(self, count: int)
-    + reset(self)
+    - remaining_dice: int
+    - dice: list<Die>
+    + roll(): list<Die>
+    + reset(): void
   }
 
   class Die {
-    - value: int (1..6)
-    + roll(self)
+    - value: int
+    + roll(): int
   }
-
 
   class Setup {
-    - calculate_score: CalculateScore.calculate_score(selection: list[Die])
     - hot_dice_enabled: bool
-    - players: list[Player]
+    - running: bool
+    - players: list<Player>
     - target_score: int
-    + toggle_ai(self, username: string)
-    + toggle_hot_dice(self)
-    + rename(self, username: string, new: string)
-    + add_player(self, username: string)
-    + remove_player(self, username: string)
-    + set_number_dice(self, number: int)
-    + set_target_score(self, score: int)
-    + create_game(self)
-    + run(self)
+    - commands: dict[str, callable]
+    - scoring_commands: dict[str, callable]
+    - player_commands: dict[str, callable]
+    - player_list_commands: dict[str, callable]
+    + run(): void
+    + cmd_help(args: list[str]): void
+    + cmd_scoring(args: list[str]): void
+    + cmd_scoring_target(args: list[str]): void
+    + cmd_scoring_hotdice(args: list[str]): void
+    + cmd_player(args: list[str]): void
+    + cmd_player_rename(args: list[str]): void
+    + cmd_player_new(args: list[str]): void
+    + cmd_player_show(args: list[str]): void
+    + cmd_player_show_scores(args: list[str]): void
+    + cmd_player_show_stats(args: list[str]): void
+    + cmd_player_save(args: list[str]): void
+    + cmd_player_load(args: list[str]): void
+    + cmd_start(args: list[str]): void
+    + cmd_exit(args: list[str]): void
   }
 
-
-  class CalculateScore {
-    + {static} default(selection: list[Die])
-    + {static} calc_score_1..*(selection: list[Die])
-  }
-
-  ' Relationships
-  Game "1" o-- "2..*" Player
-  DicePool "1" o-- "6" Die
-  Setup "1" *-- "1" Game
+  ' Relationships (composition/aggregation reflect code usage)
+  Game "1" o-- "2" Player
   Game "1" *-- "1" DicePool
+  DicePool "1" o-- "6" Die
+  Setup "1" *-- "*" Game
+  Setup "1" o-- "2" Player
 }
 @enduml
