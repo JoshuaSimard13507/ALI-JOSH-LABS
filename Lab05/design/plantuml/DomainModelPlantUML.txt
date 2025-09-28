@@ -5,16 +5,11 @@ package "Farkle Domain Model" {
 
   class Player {}
 
-
   class DicePool {}
 
   class Die {}
 
-
   class Setup {}
-
-
-  class CalculateScore {}
 
   ' Relationships
   Game "1" o-- "2..*" Player
