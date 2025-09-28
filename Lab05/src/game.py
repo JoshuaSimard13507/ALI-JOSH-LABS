@@ -98,7 +98,7 @@ class Game:
 
         player.bank_points(self.tentative_score)
 
-    def calculate_score(selection: list[Die]) -> tuple[int, int]:
+    def calculate_score(self, selection: list[Die]) -> tuple[int, int]:
         """Compute the score for a set of dice according to this variant.
 
         The algorithm:

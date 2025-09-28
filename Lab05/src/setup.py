@@ -1,3 +1,5 @@
+from prompt_toolkit.key_binding.bindings.named_commands import self_insert
+
 from .game import Game
 from .player import Player
 import textwrap
@@ -9,7 +11,6 @@ class Setup:
         self.running = True
         self.players = [Player("P1"), Player("BOT", is_ai=True)]
         self.target_score = 10000
-        self.num_dice = 6
 
         self.commands = {
             "help" : self.cmd_help,
@@ -55,7 +56,50 @@ class Setup:
             print("Bad input")
             return
 
-        self.help()
+        help_text = textwrap.dedent(f"""
+                Farkle CLI — Commands Reference
+                ===============================
+                Type a command followed by its arguments. Arguments in <> are required.
+
+
+                Player Config
+                -------------
+                player rename <username>
+                    Rename player.
+                player new <username>
+                    Overwrite player with new username.
+
+                player show
+                    List player username.
+                player show scores
+                    Show current scores for player and BOT.
+                player show stats
+                    Show player lifetime stats (Wins/Games and Lifetime Score).
+
+                player save
+                    Save player to JSON.
+                player load <username>
+                    Load a saved player.
+
+
+                Scoring Config
+                --------------
+                scoring hot-dice <state>
+                    Turn hot-dice on or off. Must input 'on' or 'off'.
+                scoring target <points>
+                    Set the target score to end the game (integer).
+
+
+                Misc
+                ----
+                help
+                    Show this help screen.
+                start
+                    Start a game with the current settings and players.
+                exit
+                    Quit the program.""")
+
+        print(help_text)
 
     def cmd_scoring(self, args: list[str]):
         if len(args) == 0:
@@ -160,7 +204,7 @@ class Setup:
 
     def cmd_player_save(self, args: list[str]):
         if len(args) == 0:
-            self.save(self.players[0])
+            self.players[0].save()
             print(f"Player '{self.players[0].username}' saved")
             return
 
@@ -171,12 +215,11 @@ class Setup:
             print("Bad input")
             return
 
-        player = self.load(args[0])
-        if player is None:
+        if self.players[0].load(args[0]):
             print(f"Save of player {args[0].upper()} doesn't exist")
             return
 
-        print(f"Player '{player.username}' loaded")
+        print(f"Player '{self.players[0].username}' loaded")
 
 
     def cmd_start(self, args: list[str]):
@@ -184,9 +227,14 @@ class Setup:
             print("Bad input")
             return
 
-        game_ran = self.create_game()
-        if not game_ran:
+        if len(self.players) < 2:
             print("Not enough players")
+            return
+
+        if Game(players=self.players, target_score=self.target_score).run():
+            print("Game ran successfully")
+            return
+        print("Game quit")
 
     def cmd_exit(self, args: list[str]):
         if len(args) != 0:
@@ -195,72 +243,3 @@ class Setup:
 
         self.running = False
         print("Byee :)")
-
-    def help(self):
-        help_text = textwrap.dedent(f"""
-        Farkle CLI — Commands Reference
-        ===============================
-        Type a command followed by its arguments. Arguments in <> are required.
-
-
-        Player Config
-        -------------
-        player rename <username>
-            Rename player.
-        player new <username>
-            Overwrite player with new username.
-                
-        player show
-            List player username.
-        player show scores
-            Show current scores for player and BOT.
-        player show stats
-            Show player lifetime stats (Wins/Games and Lifetime Score).
-
-        player save
-            Save player to JSON.
-        player load <username>
-            Load a saved player.
-
-
-        Scoring Config
-        --------------
-        scoring hot-dice <state>
-            Turn hot-dice on or off. Must input 'on' or 'off'.
-        scoring target <points>
-            Set the target score to end the game (integer).
-        
-
-        Misc
-        ----
-        help
-            Show this help screen.
-        start
-            Start a game with the current settings and players.
-        exit
-            Quit the program.
-        """)
-        print(help_text, end="")
-
-    def save(self, player: Player) -> Player:
-            player.save()
-            return player
-
-    def load(self, username: str) -> Player | None:
-        if not os.path.exists("data/players"):
-            return None
-
-        if self.players[0].load(username):
-            return self.players[0]
-        return None
-
-    def create_game(self) -> bool:
-        if len(self.players) < 2:
-            return False
-        game = Game(self.players, self.target_score, self.num_dice)
-        success = game.run()
-        if not success:
-            print("Game quit")
-        else:
-            print("Game ran successfully")
-        return True
