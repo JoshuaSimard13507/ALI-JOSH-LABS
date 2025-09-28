@@ -1,0 +1,26 @@
+@startuml
+
+left to right direction
+skinparam packageStyle rectangle
+actor Player
+
+rectangle  {
+
+  () "Play turn"      as UC_1
+  () "Set rules"      as UC_Create 
+  () "Roll Dice Pool"      as UC_pool
+  () "Calculate Score"      as UC_Calc  
+  () "Bank current points"      as UC_bank
+  () "Check win condition"      as UC_condition
+  () "Continue playing"      as UC_continue
+  () "End/Exit"      as UC_end
+  Player -- UC_Create
+  Player -- UC_1
+  UC_1 -- UC_pool
+  UC_pool -- UC_Calc
+  UC_1 -- UC_bank
+  UC_1 -- UC_condition
+  UC_condition -- UC_continue
+  UC_condition -- UC_end
+ }
+@enduml

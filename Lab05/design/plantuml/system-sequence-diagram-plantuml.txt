@@ -1,0 +1,18 @@
+@startuml
+
+
+actor Player
+participant "System" as sys
+
+
+Player -> sys : Set rules
+Player -> sys : Start game
+loop while game ! lost or won:
+    sys -> sys : Roll Dice
+    sys -> sys : Calculate Score
+    Player -> sys : Bank or reroll
+    sys -> sys : Perform bank if selected
+    sys -> sys : Check farkle or win
+end
+sys -> sys : Display Scores
+@enduml

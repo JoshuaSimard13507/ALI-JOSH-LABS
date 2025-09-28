@@ -1,0 +1,18 @@
+@startuml
+package "Use Case Scenarios" {
+    usecase UC1 as "Use Case: Play turn
+    --
+    Actors: Player and System
+    --
+    Player requests to roll dice.
+    System rolls dice, calculates results, 
+    banks points, and displays results."
+    
+    usecase UC2 as "Use Case: Bank or reroll
+    --
+    Actors: Player and System
+    --
+    Player decides to bank or reroll.
+    System calculates score, displays win/loss."
+}
+@enduml
