@@ -21,8 +21,8 @@ class Player:
         self.points += points
 
     def save(self):
-        os.makedirs("players", exist_ok=True)
-        path = f"players/{self.username.lower()}.json"
+        os.makedirs("data/players", exist_ok=True)
+        path = f"data/players/{self.username.lower()}.json"
         data_dict = {
             "username": self.username.lower(),
             "lifetime_score": self.lifetime_score,
@@ -33,13 +33,15 @@ class Player:
         with open(path, "w") as f:
             json.dump(data_dict, f)
 
-    def load(self) -> bool:
-        path = f"players/{self.username.lower()}.json"
+    def load(self, username_to_load: str | None = None) -> bool:
+        path = f"data/players/{self.username.lower() if username_to_load is None else username_to_load.lower()}.json"
+
         if not os.path.exists(path):
             return False
         with open(path, "r") as f:
             data_dict = json.load(f)
 
+        self.username = data_dict.get("username", "PLAYER").upper()
         self.lifetime_score = data_dict.get("lifetime_score", 0)
         self.wins = data_dict.get("wins", 0)
         self.games = data_dict.get("games", 0)
