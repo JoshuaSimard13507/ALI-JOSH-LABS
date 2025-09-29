@@ -25,9 +25,14 @@ Farkle is a well known dice game, a game of chance and strategy. In our implemen
 ## 2) Dependencies
 - **Runtime:** Python standard library only (no third‑party packages required).
 - **Dev/Test (optional):**
-  - 'unittest' (bundled with Python)
-  - 'pytest' (optional)
-  - 'plantuml' (optional, to render the '.plantuml' diagrams under documents folder)
+  - 'pytest' (optional, but required to run unit tests)
+  - 'plantuml' (optional, but required to render the '.plantuml' diagrams under documents folder)
+
+## 3) Unit Testing
+- **To run tests:**
+```
+pytest -v
+```
 
 ### Optional dev setup
 ```bash

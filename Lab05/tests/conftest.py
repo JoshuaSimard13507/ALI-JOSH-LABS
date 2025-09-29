@@ -1,10 +1,15 @@
 import os
 import sys
-import json
-import builtins
-import types
 import pathlib
+import builtins
+import time
 import pytest
+
+@pytest.fixture(autouse=True)
+def no_blocking_io(monkeypatch):
+    monkeypatch.setattr(builtins, "input", lambda *a, **k: "")
+    monkeypatch.setattr(time, "sleep", lambda *a, **k: None)
+
 
 PROJECT_ROOT = pathlib.Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
