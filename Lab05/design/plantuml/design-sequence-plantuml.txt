@@ -1,0 +1,29 @@
+@startuml
+
+
+actor Player
+participant ":Game" as g
+participant ":Player" as p
+participant ":Setup" as s
+participant ":Dice" as d
+participant "Die :Dice" as d2
+
+activate g
+g -> d : reset()
+g -> d : roll()
+d -> d2 : roll()
+
+g -> g : calculate_score(selection)
+g -> g : record_roll(score, used)
+Player -> g : get_player_choice()
+opt [reroll]
+g -> p : bank_score(score)
+end
+
+alt [game won or lost]
+g -> g : end_game()
+deactivate g
+
+end
+
+@enduml
